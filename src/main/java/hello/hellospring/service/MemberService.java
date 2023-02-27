@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-@Service
+/*@Service*/
 public class MemberService {
     // 회원 객체 저장하는 레포지토리 인터페이스인 MemberRepository 타입에
     // MemberRepository를 상속받는 MemoryMemberRepository구현체 인스턴스를 생성
@@ -17,7 +17,7 @@ public class MemberService {
     /*private final MemberRepository memberRepository = new MemoryMemberRepository();*/
     private final MemberRepository memberRepository;
 
-    @Autowired
+    /*@Autowired*/
     // MemService는 memberRepository가 필요, @Autowired하면 MemberService Spring이 생성할 떄
     // @Service -> Container에 등록 -> 생성자 호출 -> @Autowired -> MemberRepository memberRepository
     // -> Container에 있는 Repository를 끼워준다.
