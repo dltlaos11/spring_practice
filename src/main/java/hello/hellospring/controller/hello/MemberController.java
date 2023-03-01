@@ -1,8 +1,14 @@
 package hello.hellospring.controller.hello;
 
+import hello.hellospring.domain.Member;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 // Spring Container가 처음에 뜰떄(시작할떄) @Controller라는 어노테이션이 있으면 MmeberController라는
 // 객체를 만들어서 Spring에 넣어둔다. 그리고 Spring Container에서 Spring 빈이 관리된다고 표현.
@@ -30,4 +36,24 @@ public class MemberController {
     // MemoryMemberRepository구현체에는 @Repository어노테이션을 붙임
     // Controller를 통해서 외부요청을 받고 Service에서 비즈니스 로직을 만들고 Repository에서 데이터를 저장,
 
+    @GetMapping("/members/new")
+    public String createForm(){
+        return "members/createMemberForm";
+    }
+
+    @PostMapping("/members/new")
+    public String create(MemberForm form){
+        Member member = new Member();
+        member.setName(form.getName());
+
+        memberService.join(member);
+
+        return "redirect:/";
+    }
+    @GetMapping(value = "/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "members/memberList";
+    }
 }
